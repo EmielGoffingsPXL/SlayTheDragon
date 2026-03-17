@@ -6,6 +6,7 @@
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Slay the dragon!");
+            ShowLogo();
             Console.ResetColor();
 
             string maul = "1";
@@ -102,7 +103,9 @@
                         {
                             case "1":
                                 dragonHP -= bluntStrike;
-                                DragonAttack();
+
+                                //dragonSlayerHP -= ...
+                                dragonSlayerHP = DragonAttack(dragonSlayerHP, rng);
 
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine($"You hit the dragon for: {bluntStrike}dmg!");
@@ -134,7 +137,7 @@
                                 break;
                             case "3":
                                 dragonSlayerHP += medecine;
-                                DragonAttack();
+                                dragonSlayerHP = DragonAttack(dragonSlayerHP, rng);
 
                                 Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.WriteLine($"your medicene healed you for: {medecine}HP!");
@@ -176,7 +179,7 @@
                         {
                             case "1":
                                 dragonHP -= piercingStrike;
-                                DragonAttack();
+                                dragonSlayerHP = DragonAttack(dragonSlayerHP, rng);
 
                                 Console.WriteLine($"You hit the dragon for {piercingStrike}dmg!");
                                 Console.WriteLine($"You got hit by the dragon for {DragonAttack}dmg!");
@@ -184,7 +187,7 @@
                                 break;
                             case "2":
                                 dragonHP -= gapingWound;
-                                DragonAttack();
+                                dragonSlayerHP = DragonAttack(dragonSlayerHP, rng);
                                 break;
                         }
 
@@ -193,15 +196,22 @@
 
             } while (dragonSlayerHP > 0 && dragonHP > 0);
         }
-        public static int DragonAttack()
+
+        public static int DragonAttack(int slayerHp, Random rng)
         {
-            Random rng = new Random();
+            //Random rng = new Random();
             int dragonAttack = rng.Next(20, 36);
-            int dragonSlayerHP = rng.Next(76, 151);
+            //int dragonSlayerHP = rng.Next(76, 151);
 
-            dragonSlayerHP -= dragonAttack;
+            slayerHp -= dragonAttack;
 
-            return dragonAttack;
+            return slayerHp;
+        }
+
+        private static void ShowLogo()
+        {
+
+            Console.WriteLine("                                                                       .+.                          \r\n                                                                       .=@@%#*******#***=-:..       \r\n                                                                       .-@@@@@@@@@@@@@@@@@@@@+...   \r\n                                                                       .=@@@@@@@@@@@@@@@@@@@@@@%-.  \r\n                                                                       .+@@@@@@@@@@@@@@@@#=-=+#@@@:.\r\n                                                          .....        .@@@@@@@@@@@@@@@#. .   ...:=-\r\n                                                    ..+:.-#@*=.      ..#@@@@@@@@@@@@@@@@-..         \r\n                                                  .:.#@@@@@@%#%#=..  .*@@@@@@@@@@@@@@@@@@@%=:..     \r\n                                                  .#@@@@@@@@@@@@@=..:%@@@@@@@@@@@@@@@%+-:......     \r\n                                                 .:%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*.               \r\n                     ..*-.                       .-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:.                \r\n                     ...#@%=:...                 .@@@@%+.:#@@@@@@@@@@@@@@@@@@@@@@=.                 \r\n                     ...-@@@@@%:...              :@@@:    :@@@@@@@@@@@@@@@@@@@@@@+..                \r\n                    ..+@@@@@@@@@@@*-..                  .=@@@@@@@@@@@@@@@@@@*:.-%@.                 \r\n                   .=@@@@@@@@@@@@@@@@@#-:......     ...-@@@@@@@@@@@@@@@@@@#... ..=:                 \r\n                 ..%@@@@@@@@@@@@@@@@@@@@@@@%#+-....:*%@@@@@@@@@@@@@@@@@@@@..                        \r\n                .=@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#.                         \r\n               .*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-                          \r\n             .:%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%:                          \r\n           ..+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:.                          \r\n          .:%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@..                          \r\n       ..:#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%+......:**=:...#@@@@@@@@@@@@@%.                           \r\n     ...+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@=.              .%@@@@@@@@*.:@@+..                          \r\n     .-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@..              .-@@@@@@@@-. .=@@@-.                         \r\n   ..#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@=              ...@@@@@@@%:.  .*@@@:                          \r\n ..:%@@@@@@@@@@@@@@@%%@@@@@@@@@@@@@@@@:              .-@@@@@@+..    .*%=..                          \r\n .-@@@@@@@@@@@@@@*.....-#@@@@@#***%@@%.             .:%@@@@@-.                                      \r\n.=@@@@@@@@@@@@@=..      .:@@:..   ..+#.             ..*@@@@+.                                       \r\n.%@@*:....+@@+..          ...       ...              .:@@@@-.               ....-*%%%+..            \r\n-@+..     ...                                        .+@@@%:               ..=@@@@@@@@@..           \r\n+-.                                                  .#@@@@:             ..#@@@*+%::+@%.            \r\n..                                                   .=@@@@*.        ...:%@%-..     .+:.            \r\n                                                     ..%@@@@@:.... ...+@@@:.        ...             \r\n                                                     ....*@@@@@@###%@@@*:.                          \r\n                                                          ..-*%@@@%%+:.                             ");
         }
     }
 }
