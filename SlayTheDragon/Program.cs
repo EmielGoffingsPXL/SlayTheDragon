@@ -6,6 +6,7 @@
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Slay the dragon!");
+            ShowLogo();
             Console.ResetColor();
 
             Random rng = new Random();
@@ -72,6 +73,9 @@
                             case "1":
                                 dragonHP -= bluntStrike;
                                 dragonSlayerHP -= dragonAttack;
+
+                                //dragonSlayerHP -= ...
+                                dragonSlayerHP = DragonAttack(dragonSlayerHP, rng);
 
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine($"You hit the dragon for: {bluntStrike}dmg!");
