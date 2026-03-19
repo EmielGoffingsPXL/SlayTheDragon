@@ -8,57 +8,26 @@
             Console.WriteLine("Slay the dragon!");
             Console.ResetColor();
 
-            string maul = "1";
-            string lance = "2";
-            string greatSword = "3";
-            
             Random rng = new Random();
             int dragonSlayerHP = rng.Next(76, 151);
             int dragonHP = rng.Next(80, 171);
+            int dragonAttack = rng.Next(20, 36);
 
-            string weaponChoice = "0";
+            string maul = "1";
+            string lance = "2";
+            string greatSword = "3";
+
+            string chosenWeapon = "0";
+
+            string weapon = WeaponChoice(maul, lance, greatSword);
 
             bool isValid;
-            do
-            {
-                isValid = true;
-
-                Console.WriteLine();
-
-                Console.WriteLine("1. Maul");
-                Console.WriteLine("2. Lance");
-                Console.WriteLine("3. Greatsword");
-                Console.Write("Pick your weapon: ");
-                string input = Console.ReadLine();
-
-                Console.WriteLine();
-
-                switch (input)
-                {
-                    case "1":
-                        Console.WriteLine("Go and slay the dragon with your maul!");
-                        weaponChoice = maul;
-                        break;
-                    case "2":
-                        Console.WriteLine("Go and slay the dragon with your lance!");
-                        weaponChoice = lance;
-                        break;
-                    case "3":
-                        Console.WriteLine("Go and slay the dragon with your greatsword!");
-                        weaponChoice = greatSword;
-                        break;
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Pick a valid weapon!");
-                        Console.ResetColor();
-                        isValid = false;
-                        break;
-                }
-            } while (isValid == false);
 
             int dazingStrikeCounter = 0;
             do
             {
+                isValid = true;
+                
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"Dragon slayer's health points: {dragonSlayerHP}");
@@ -79,7 +48,7 @@
                 Console.WriteLine();
                 Console.WriteLine();
 
-                if (weaponChoice == maul)
+                if (weapon.Equals(maul))
                 {
                     do
                     {   
@@ -102,11 +71,11 @@
                         {
                             case "1":
                                 dragonHP -= bluntStrike;
-                                DragonAttack();
+                                dragonSlayerHP -= dragonAttack;
 
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine($"You hit the dragon for: {bluntStrike}dmg!");
-                                Console.WriteLine($"You were hit by the dragon for: {DragonAttack}dmg!");
+                                Console.WriteLine($"You were hit by the dragon for: {dragonAttack}dmg!");
                                 Console.WriteLine();
 
                                 dazingStrikeCounter++;
@@ -134,11 +103,11 @@
                                 break;
                             case "3":
                                 dragonSlayerHP += medecine;
-                                DragonAttack();
+                                dragonSlayerHP -= dragonAttack;
 
                                 Console.ForegroundColor = ConsoleColor.Blue;
                                 Console.WriteLine($"your medicene healed you for: {medecine}HP!");
-                                Console.WriteLine($"The dragon hit you for: {DragonAttack}dmg!");
+                                Console.WriteLine($"The dragon hit you for: {dragonAttack}dmg!");
                                 Console.WriteLine();
 
                                 dazingStrikeCounter++;
@@ -153,7 +122,7 @@
                         }
                     } while (isValid == false);
                 }
-                else if (weaponChoice == lance)
+                else if (weapon.Equals(lance))
                 {
                     do
                     {
@@ -176,32 +145,90 @@
                         {
                             case "1":
                                 dragonHP -= piercingStrike;
-                                DragonAttack();
+                                dragonSlayerHP -= dragonAttack;
 
                                 Console.WriteLine($"You hit the dragon for {piercingStrike}dmg!");
-                                Console.WriteLine($"You got hit by the dragon for {DragonAttack}dmg!");
+                                Console.WriteLine($"You got hit by the dragon for {dragonAttack}dmg!");
                                 Console.WriteLine();
                                 break;
                             case "2":
                                 dragonHP -= gapingWound;
-                                DragonAttack();
+                                dragonSlayerHP -= dragonAttack;
+
+                                Console.WriteLine($"You hit the dragon for {gapingWound}dmg!");
+                                Console.WriteLine($"You got hit by the dragon for {dragonAttack}dmg!");
+                                Console.WriteLine();
+                                break;
+                            case "3":
+                                dragonSlayerHP += bandage;
+                                dragonSlayerHP -= dragonAttack;
+
+                                Console.WriteLine($"You healed yourself for {bandage}HP!");
+                                Console.WriteLine($"You got hit by the dragon for {dragonAttack}dmg!");
+                                break;
+                            default:
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Invalid action!");
+                                Console.ResetColor();
+                                Console.WriteLine();
                                 break;
                         }
 
                     } while (isValid == false);
                 }
+                else if(weapon.Equals(greatSword))
+                {
+                    do
+                    {
+                        int slashingStrike = rng.Next();
+                        
+                    } while (isValid == false);
+                }
 
             } while (dragonSlayerHP > 0 && dragonHP > 0);
         }
-        public static int DragonAttack()
+        private static string WeaponChoice(string maul, string lance, string greatSword)
         {
-            Random rng = new Random();
-            int dragonAttack = rng.Next(20, 36);
-            int dragonSlayerHP = rng.Next(76, 151);
+            string chosenWeapon = "0";
+            bool isValid = true;
+            do
+            {
+                Console.WriteLine();
 
-            dragonSlayerHP -= dragonAttack;
+                Console.WriteLine("1. Maul");
+                Console.WriteLine("2. Lance");
+                Console.WriteLine("3. Greatsword");
+                Console.Write("Pick your weapon: ");
+                string input = Console.ReadLine();
 
-            return dragonAttack;
+                Console.WriteLine();
+
+                switch (input)
+                {
+                    case "1":
+                        Console.WriteLine("Go and slay the dragon with your maul!");
+                        chosenWeapon = maul;
+                        isValid = true;
+                        break;
+                    case "2":
+                        Console.WriteLine("Go and slay the dragon with your lance!");
+                        chosenWeapon = lance;
+                        isValid = true;
+                        break;
+                    case "3":
+                        Console.WriteLine("Go and slay the dragon with your greatsword!");
+                        chosenWeapon = greatSword;
+                        isValid = true;
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Pick a valid weapon!");
+                        Console.ResetColor();
+                        isValid = false;
+                        break;
+                }
+            } while (isValid == false);
+            return chosenWeapon;
         }
     }
 }
